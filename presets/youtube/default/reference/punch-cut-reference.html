@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en"><head><meta charset="UTF-8"/>
+<meta name="viewport" content="width=1920, height=1080"/>
+<title>edited</title>
+<script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+<style>
+@font-face{font-family:'Playfair Display';
+  src:url('assets/PlayfairDisplay-Italic-VF.ttf') format('truetype');
+  font-weight:400 900;font-style:italic;font-display:block;}
+*{margin:0;padding:0;box-sizing:border-box;}
+#root{position:relative;width:1920px;height:1080px;overflow:hidden;}
+/* the locked bg-light field (grain comes from the ffmpeg post-pass) — static, does not slide */
+#base{position:absolute;inset:0;
+  background:radial-gradient(ellipse 120% 95% at 50% 42%,
+    #f2f3f6 0%, #e8eaef 55%, #dde0e7 100%);}
+#vig{position:absolute;inset:0;
+  background:radial-gradient(ellipse 78% 72% at 50% 50%,
+    rgba(16,24,50,0) 22%, rgba(16,24,50,0.05) 40%, rgba(16,24,50,0.12) 54%,
+    rgba(16,24,50,0.22) 66%, rgba(16,24,50,0.33) 77%, rgba(16,24,50,0.44) 88%,
+    rgba(16,24,50,0.55) 100%);}
+
+#scene1,#scene2{position:absolute;inset:0;will-change:transform;}
+
+/* scene 1: the mascot hero */
+/* the float layer — absolute+inset:0 so #guyWrap's left/top still resolve against the
+   full frame once the transform makes this the containing block. */
+#guyFloat{position:absolute;inset:0;will-change:transform;}
+#guyWrap{position:absolute;left:640px;top:105px;width:640px;height:640px;
+  opacity:0;will-change:transform,opacity;transform-origin:50% 55%;}
+#guyWrap img{position:absolute;left:0;top:0;width:640px;}
+#guyWrap .glow1{filter:blur(90px);opacity:0.38;transform:scale(1.06);}
+#guyWrap .glow2{filter:blur(34px);opacity:0.30;}
+#cap{position:absolute;left:0;top:790px;width:1920px;text-align:center;}
+.w{position:relative;display:inline-block;margin:0 15px;
+  font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;font-weight:700;
+  font-size:122px;line-height:132px;letter-spacing:-5.4px;color:#111;
+  opacity:0;will-change:transform,opacity;}
+/* the emphasis font: Playfair Display Italic w700 (the locked two-font system) */
+.w.serif{font-family:'Playfair Display',Georgia,serif;font-weight:700;
+  font-style:italic;font-size:126px;letter-spacing:-3.5px;}
+#arrow{position:absolute;left:400px;top:420px;opacity:0;}
+#arrow path{stroke:#111;stroke-width:15;fill:none;
+  stroke-linecap:round;stroke-linejoin:round;}
+#arrow .head{fill:#111;stroke:none;}
+
+/* scene 2: "one shot / one go" + self-made vector bullet holes */
+#scene2{transform:translate3d(1920px,0,0);}
+#shotline{position:absolute;left:0;top:330px;width:1920px;text-align:center;
+  font-family:Helvetica,'Helvetica Neue',Arial,sans-serif;font-weight:700;
+  font-size:210px;line-height:220px;letter-spacing:-9.2px;color:#111;}
+#goline{position:absolute;left:0;top:580px;width:1920px;text-align:center;}
+#goline .w{font-size:150px;line-height:160px;letter-spacing:-6.6px;}
+.hole{position:absolute;opacity:0;will-change:transform,opacity;}
+</style></head>
+<body style="margin:0;background:#000;">
+<div id="root" data-composition-id="main" data-width="1920" data-height="1080"
+     data-start="0" data-duration="4.2700">
+<div id="base"></div>
+<div id="vig"></div>
+
+<div id="scene1">
+<div id="guyFloat">
+<div id="guyWrap">
+  <img class="glow1" src="assets/claude-guy.png" alt=""/>
+  <img class="glow2" src="assets/claude-guy.png" alt=""/>
+  <img class="sharp" src="assets/claude-guy.png" alt=""/>
+</div>
+</div>
+<svg id="arrow" width="260" height="400" viewBox="0 0 260 400">
+  <path id="curve" d="M 150 350 C 40 300, 30 180, 170 80"/>
+  <polygon class="head"/>
+</svg>
+<div id="cap">
+<span class="w" data-t="0.00">edited</span><span class="w" data-t="0.30">by</span><span class="w serif" data-t="0.54">Claude</span>
+</div>
+</div>
+
+<div id="scene2">
+<div id="shotline">one shot</div>
+<div id="goline"><span class="w" data-t="3.359">one</span><span class="w" data-t="3.540">go</span></div>
+<svg class="hole" id="hole1" width="230" height="230" viewBox="-20 -20 240 240"
+     style="left:1300px;top:190px;transform:rotate(12deg);">
+  <polygon fill="#111" points="133,100 131,127 111,126 84,134 77,121 57,98 73,81 91,60 107,73 133,82"/>
+  <polygon fill="#111" points="192,125 123,113 127,100"/>
+  <polygon fill="#111" points="141,213 102,127 115,122"/>
+  <polygon fill="#111" points="49,161 78,115 89,124"/>
+  <polygon fill="#111" points="-1,73 77,87 73,100"/>
+  <polygon fill="#111" points="70,17 98,73 85,78"/>
+  <polygon fill="#111" points="174,12 122,85 111,76"/>
+  <polygon fill="#111" points="170,81 127,100 123,87"/>
+  <polygon fill="#3a3f47" points="120,100 116,120 98,118 82,112 84,92 100,84 116,86"/>
+</svg>
+<svg class="hole" id="hole2" width="175" height="175" viewBox="-20 -20 240 240"
+     style="left:400px;top:545px;transform:rotate(140deg);">
+  <polygon fill="#111" points="136,102 125,115 109,142 91,132 66,121 74,103 72,77 88,73 117,61 126,80"/>
+  <polygon fill="#111" points="184,171 115,122 124,111"/>
+  <polygon fill="#111" points="85,184 89,124 102,127"/>
+  <polygon fill="#111" points="-16,120 73,98 76,111"/>
+  <polygon fill="#111" points="36,36 87,77 77,87"/>
+  <polygon fill="#111" points="134,6 115,78 102,73"/>
+  <polygon fill="#3a3f47" points="118,100 112,118 96,120 84,108 88,90 104,82 114,88"/>
+</svg>
+<svg class="hole" id="hole3" width="145" height="145" viewBox="-20 -20 240 240"
+     style="left:1470px;top:680px;transform:rotate(261deg);">
+  <polygon fill="#111" points="131,98 129,126 112,133 89,126 69,128 64,99 73,83 92,61 110,67 124,86"/>
+  <polygon fill="#111" points="189,116 124,111 127,98"/>
+  <polygon fill="#111" points="119,210 98,127 111,124"/>
+  <polygon fill="#111" points="32,139 74,107 81,119"/>
+  <polygon fill="#111" points="-4,40 81,81 74,93"/>
+  <polygon fill="#111" points="100,14 107,74 93,74"/>
+  <polygon fill="#111" points="187,50 126,93 119,81"/>
+  <polygon fill="#3a3f47" points="116,98 114,116 98,120 84,110 86,92 100,82 112,86"/>
+</svg>
+</div>
+</div>
+<script>
+// Two-scene punch graphic. Scene 1 (mascot hero) slides off left as scene 2
+// ("one shot / one go" + vector bullet holes) slides in from the right on the
+// static background. House motion throughout; timings are comp-relative
+// (comp sits at 2.035 on the timeline), spoken-word syncs carry the 80ms lead.
+const DUR = 4.27;
+
+const tl = gsap.timeline({paused: true});
+const F = 1001 / 30000;
+
+// THE FLOAT — TWO presets (creative-moves.md move 2). ZERO rotation. x and y run on
+// DIFFERENT periods so the path is an ellipse, not a diagonal. The element RESTS at its
+// authored position and drifts out and back (0 -> A -> 0); it never straddles it.
+//   subtle — a whole graphic: a card, a chat thread, a panel and its furniture
+//   medium — ONE big hero element: the mascot, a hero card, a single node
+// Values are TRAVEL in px, not amplitude. A truncated final leg would cover the full
+// travel in a short window and visibly ACCELERATE into the exit, so the last leg scales
+// its travel by the time remaining instead.
+const FLOAT = {subtle: [6, 8, 1.25, 0.95], medium: [10, 16, 1.35, 1.05]};
+const float = (target, t0, t1, preset) => {
+  const [AX, AY, PX, PY] = FLOAT[preset];
+  const leg = (prop, A, p) => {
+    let cur = 0, out = true;
+    for (let t = t0; t < t1 - 0.02; t += p) {
+      const rem = Math.min(p, t1 - t);
+      cur += ((out ? A : 0) - cur) * (rem / p);
+      tl.to(target, {[prop]: cur, duration: rem, ease: 'sine.inOut'}, t);
+      out = !out;
+    }
+  };
+  leg('x', AX, PX); leg('y', -AY, PY);   // y drifts UP first
+};
+
+// THE ARROW (animations.md § The arrow). The head is COMPUTED from the path's measured
+// end tangent and sized off its stroke width — NEVER hand-authored. An eyeballed polygon
+// reads broken on any curve, because a cubic's end tangent is P3-P2, not the direction
+// the arrow looks like it is travelling. Call once per comp, AFTER any glow-layer clone.
+const DRAW = 9;                                    // frames the stroke takes to arrive
+const arrow = (sel) => {
+  for (const svg of document.querySelectorAll(sel)) {
+    const p = svg.querySelector('path'), head = svg.querySelector('.head');
+    const L = p.getTotalLength();
+    const sw = parseFloat(getComputedStyle(p).strokeWidth) || 10;
+    const p1 = p.getPointAtLength(L), p0 = p.getPointAtLength(Math.max(0, L - 8));
+    let tx = p1.x - p0.x, ty = p1.y - p0.y;
+    const n = Math.hypot(tx, ty) || 1; tx /= n; ty /= n;      // unit tangent
+    const px = -ty, py = tx;                                  // unit normal
+    const tip = {x: p1.x + tx * 2.27 * sw, y: p1.y + ty * 2.27 * sw};
+    const b = {x: p1.x - tx * 0.27 * sw, y: p1.y - ty * 0.27 * sw};
+    const h = 1.33 * sw;
+    head.setAttribute('points', [[tip.x, tip.y],
+      [b.x + px * h, b.y + py * h], [b.x - px * h, b.y - py * h]]
+      .map(c => c[0].toFixed(1) + ',' + c[1].toFixed(1)).join(' '));
+    p.style.strokeDasharray = L; p.style.strokeDashoffset = L;
+  }
+};
+const drawOn = (sel, at) => {                      // the REVEAL: stroke arrives, head stamps
+  tl.set(sel, {opacity: 1}, at);
+  tl.to(sel + ' path', {strokeDashoffset: 0, duration: DRAW*F, ease: 'power2.out'}, at);
+  tl.set(sel + ' .head', {opacity: 1}, at + (DRAW - 1)*F);
+};
+arrow('#arrow');
+
+// ── scene 1 entrances ──
+// mascot: FLICKER-IN (locked preset — 7 frames, 20% ghost pulses, gaps 2→1→0)
+const FLASH = [[0,0.2],[1,0],[3,0.2],[4,0],[5,0.2],[6,1]];
+for (const [f, o] of FLASH) tl.set('#guyWrap', {opacity: o}, f * F);
+// hold life: THE FLOAT, MEDIUM preset — THIS graphic is where the medium numbers come
+// from. It spans the WHOLE composition, so the mascot is already floating THROUGH the
+// flicker-in rather than starting once the entrance finishes; the flicker animates
+// #guyWrap's opacity and the float animates its #guyFloat wrapper, so they compose.
+float('#guyFloat', 0, DUR, 'medium');
+for (const el of document.querySelectorAll('#cap .w')) {
+  const t0 = +el.dataset.t;
+  tl.fromTo(el, {y: 30}, {y: 0, duration: 0.55, ease: 'power3.out'}, t0);
+  tl.set(el, {opacity: 1}, t0);
+}
+drawOn('#arrow', 0.22);
+
+// ── the slide: scene 1 off left, scene 2 in from the right (timeline 4.30s) ──
+const SLIDE_T = 2.265, SLIDE_DUR = 0.38;
+tl.to('#scene1', {x: -1920, duration: SLIDE_DUR, ease: 'power3.inOut'}, SLIDE_T);
+tl.to('#scene2', {x: 0, duration: SLIDE_DUR, ease: 'power3.inOut'}, SLIDE_T);
+
+// ── bullet holes: bam, bam, bam — right after "shot" lands (timeline 4.85 / 5.03 / 5.16).
+// THE REGISTRY `pop` (animations.md): 0.90 -> 1.10 over 3F power2.out, snap to 1.00 on frame 4.
+// They are free-standing OBJECTS, so they pop (type/cards/panels would rise), and they are
+// PEERS doing the same job, so all three share one entrance (the variation principle).
+// NOTE: this comp used to stamp them with the retired 1.45x scale-punch — that move is a
+// defect now, not a variant; if you find it in an old comp, replace it exactly like this.
+for (const [id, t] of [['#hole1', 2.815], ['#hole2', 2.995], ['#hole3', 3.125]]) {
+  const ft = Math.round(t / F) * F;
+  tl.set(id, {opacity: 1, scale: 0.90}, ft);
+  tl.to(id, {scale: 1.10, duration: 3*F, ease: 'power2.out'}, ft);
+  tl.set(id, {scale: 1}, ft + 4*F);
+}
+
+// ── "one go": word pops at the spoken times (data-t already leads by 80ms) ──
+for (const el of document.querySelectorAll('#goline .w')) {
+  const t0 = +el.dataset.t;
+  tl.fromTo(el, {y: 30}, {y: 0, duration: 0.55, ease: 'power3.out'}, t0);
+  tl.set(el, {opacity: 1}, t0);
+}
+
+tl.set({}, {}, DUR);   // pin the timeline's total duration
+tl.progress(0);
+window.__timelines = window.__timelines || {};
+window.__timelines["main"] = tl;
+</script></body></html>

@@ -1,0 +1,23 @@
+{
+  "version": "0.0.1",
+  "configurations": [
+    {
+      "name": "clip-preview",
+      "runtimeExecutable": "uv",
+      "runtimeArgs": ["run", "--no-project", "python", ".claude/preview-server.py"],
+      "port": 7842
+    },
+    {
+      "name": "docs",
+      "runtimeExecutable": "uv",
+      "runtimeArgs": ["run", "--no-project", "python", "-m", "http.server", "7843"],
+      "port": 7843
+    },
+    {
+      "name": "probe",
+      "runtimeExecutable": "uv",
+      "runtimeArgs": ["run", "--no-project", "python", "-m", "http.server", "8123", "--directory", "."],
+      "port": 8123
+    }
+  ]
+}

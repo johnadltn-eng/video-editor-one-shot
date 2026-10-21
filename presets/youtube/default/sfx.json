@@ -1,0 +1,372 @@
+{
+  "_": "youtube/default SFX map. WHAT only: event -> sound class -> library file + slice. Numbers measured off the your-job intro. Read by workflows/sfx-plan.py; placement is per lane (LANES.md step 6).",
+  "library": "assets/sfx",
+  "targets_dbfs": {
+    "_": "on-timeline PEAK per class; the clip level is target minus the measured slice peak, whole dB, capped at +6; an event carrying level_db uses that fixed clip level instead; the voice ceiling these bands sit under is the -6 dBFS limiter of step 3",
+    "whoosh": -4,
+    "transient": -6,
+    "tick": -6,
+    "marker": -9,
+    "character": -10,
+    "soft": -12,
+    "bed": -18
+  },
+  "tracks": {
+    "_": "0-based audio track indices on the youtube/default map: A2 primary, A3 second layer, A4 third layer, A5 music",
+    "primary": 1,
+    "layer2": 2,
+    "layer3": 3,
+    "music": 4
+  },
+  "layer_window_frames": 2,
+  "riser_gap_s": 0.45,
+  "events": {
+    "pop": {
+      "class": "transient",
+      "file": "Pop 1.wav",
+      "slices": [
+        [
+          0.0,
+          0.29
+        ],
+        [
+          0.46,
+          0.71
+        ],
+        [
+          0.88,
+          1.08
+        ],
+        [
+          1.17,
+          1.29
+        ],
+        [
+          0.08,
+          0.33
+        ]
+      ]
+    },
+    "slam": {
+      "class": "transient",
+      "file": "Metal Pop.wav",
+      "slices": [
+        [
+          0.43,
+          0.67
+        ]
+      ],
+      "_": "Metal Pop, your slice (2026-09-03): the transient sits a frame in, tail trimmed"
+    },
+    "riseIn": {
+      "class": "soft",
+      "file": "Simple Whoosh 1.wav",
+      "slices": [
+        [
+          0.0,
+          0.467
+        ]
+      ],
+      "whole_file": true
+    },
+    "riseOut": null,
+    "exit": null,
+    "slideIn": {
+      "class": "whoosh",
+      "file": "Simple Whoosh 2.wav",
+      "slices": [
+        [
+          0.0,
+          0.312
+        ]
+      ],
+      "whole_file": true
+    },
+    "slideOut": {
+      "class": "whoosh",
+      "file": "Simple Whoosh 2.wav",
+      "slices": [
+        [
+          0.0,
+          0.312
+        ]
+      ],
+      "whole_file": true
+    },
+    "drawOn": {
+      "class": "marker",
+      "file": "Pencils & Markers.mp3",
+      "slices": [
+        [
+          7.84,
+          8.3
+        ],
+        [
+          8.47,
+          8.93
+        ],
+        [
+          9.3,
+          9.59
+        ],
+        [
+          11.18,
+          11.93
+        ]
+      ]
+    },
+    "countUp": {
+      "class": "bed",
+      "file": "UI Data Loading Sound Effect - 128.mp3",
+      "slices": [
+        [
+          0.25,
+          1.71
+        ]
+      ],
+      "fit": "duration"
+    },
+    "reveal": {
+      "class": "bed",
+      "file": "Keyboard Typing.aiff",
+      "level_db": 2,
+      "slices": [
+        [
+          3.84,
+          5.74
+        ]
+      ],
+      "fit": "duration",
+      "_": "text typing on: real typing at a real level, not a texture (2026-09-03: +2 dB on the .aiff)"
+    },
+    "flash": {
+      "class": "soft",
+      "file": "Neon Flicker.wav",
+      "level_db": 0,
+      "whole_file": true,
+      "slices": [
+        [
+          0.0,
+          0.46
+        ]
+      ],
+      "_": "PAIRED with the flicker/flash animation (2026-09-03: 'those are paired'): one Neon Flicker at the strobe START, whole file, fixed 0 dB clip level. No stamp on the landing. A full-screen that opens on a flicker takes this INSTEAD of the cut-in whoosh."
+    },
+    "word": {
+      "class": "transient",
+      "file": "Scissors.wav",
+      "level_db": -7,
+      "slices": [
+        [
+          0.63,
+          0.75
+        ],
+        [
+          1.21,
+          1.42
+        ],
+        [
+          2.25,
+          2.46
+        ],
+        [
+          4.55,
+          4.67
+        ],
+        [
+          5.55,
+          5.67
+        ]
+      ],
+      "_": "you 2026-09-03: scissor snips at a FIXED -7 dB clip level (was -3, then -5) on every RISE text-animation word (level_db overrides the class target). Texting On Phone is kept in reserve for a stepping/ticking event."
+    },
+    "cut-in": {
+      "class": "whoosh",
+      "file": "Whoosh Short 2.mp3",
+      "slices": [
+        [
+          0.0,
+          0.693
+        ]
+      ],
+      "lead_frames": 2,
+      "whole_file": true,
+      "_": "a hard cut INTO a full-screen, 2 frames early. DROPPED when a flash/flicker sits within 2 frames of the cut (the flicker sound is the cut's sound then)."
+    },
+    "riser": {
+      "class": "bed",
+      "file": "Riser 2.mp3",
+      "slices": [
+        [
+          2.46,
+          3.63
+        ]
+      ],
+      "first_cut_in_only": true
+    },
+    "cut-out": null,
+    "title-card": {
+      "class": "character",
+      "file": "Genius Intro Sound.wav",
+      "slices": [
+        [
+          0.0,
+          3.5
+        ]
+      ]
+    },
+    "word-pop": {
+      "class": "transient",
+      "file": "Pop 1.wav",
+      "slices": [
+        [
+          0.0,
+          0.29
+        ],
+        [
+          0.46,
+          0.71
+        ],
+        [
+          0.88,
+          1.08
+        ],
+        [
+          1.17,
+          1.29
+        ],
+        [
+          0.08,
+          0.33
+        ]
+      ],
+      "_": "a text animation whose ENTRANCE is punch/pop: each word gets the object pop"
+    },
+    "word-slam": {
+      "class": "character",
+      "file": "Impact.wav",
+      "level_db": -10,
+      "offset_frames": 2,
+      "slices": [
+        [
+          0.93,
+          2.5
+        ]
+      ],
+      "_": "a SLAM text animation: Impact on every word, 2 frames after the word onset (on the settle), fixed -10 dB; the run truncates itself and the last word rings out (your 'one shot', 2026-09-03)"
+    },
+    "_slices": "a single-hit whoosh file (Simple Whoosh 1/2, Whoosh Short 2) is placed WHOLE; every other library file is multi-hit or long and is always sliced (2026-09-03)",
+    "word-flicker": {
+      "class": "soft",
+      "file": "Neon Flicker.wav",
+      "level_db": 0,
+      "whole_file": true,
+      "slices": [
+        [
+          0.0,
+          0.46
+        ]
+      ],
+      "_": "a text animation with the flicker entrance strobes as ONE block: one Neon Flicker at the block's first word onset, nothing per word"
+    },
+    "word-negative": {
+      "class": "character",
+      "file": "Error Buzz.wav",
+      "level_db": -7,
+      "whole_file": true,
+      "slices": [
+        [
+          0.0,
+          0.24
+        ]
+      ],
+      "_": "NEGATION (2026-09-03): a RED word in a text animation is a negative beat and takes the Error Buzz instead of scissors, fixed -7 dB (his 'defeats' placement). The same sound is the candidate for an X or a strike-through; not automatic there yet."
+    },
+    "emphasis": {
+      "class": "character",
+      "file": "Impact.wav",
+      "level_db": -5,
+      "offset_frames": 2,
+      "slices": [
+        [
+          0.9,
+          2.14
+        ]
+      ],
+      "hand_only": true,
+      "_": "a SCRIPT call, never automatic (2026-09-03): an especially important word gets an Impact 2 frames after its onset and loses its scissors. Named in sfx-hand.json as {gid, event: emphasis, word}. Styling alone (serif/italic) does NOT trigger it."
+    },
+    "gunshot": {
+      "class": "character",
+      "file": "Gunshot.mp3",
+      "level_db": -15,
+      "slices": [
+        [
+          0.0,
+          0.6
+        ]
+      ],
+      "hand_only": true,
+      "_": "a literal prop: bullet holes, a shot. Hand entry; drops the pop it replaces. Fixed -15 dB (the file peaks at 0 dBFS). Leads by 2 frames: the mp3's attack sits ~70 ms into the file, so the bang lands ON the hole (you placed hole 1 two frames early).",
+      "lead_frames": 2
+    },
+    "row-tick": {
+      "class": "character",
+      "file": "Lighter.wav",
+      "level_db": -5,
+      "slices": [
+        [
+          0.33,
+          0.57
+        ]
+      ],
+      "_": "a list row / rule ticking on: a switch click, not an object pop. Automatic: a pop inside a list/card-kind graphic becomes this (your rules card, 2026-09-03)."
+    },
+    "payoff": {
+      "class": "character",
+      "file": "Bell Ding Sound Effect.wav",
+      "level_db": -10,
+      "lead_frames": 4,
+      "slices": [
+        [
+          0.0,
+          1.5
+        ]
+      ],
+      "hand_only": true,
+      "_": "a completion / reward beat (100%, the finished node, a check): Bell Ding starting 4 frames BEFORE the visual lands so the attack rings with it. Hand entry; drops the pop it replaces."
+    },
+    "processing": {
+      "class": "bed",
+      "file": "UI Data Loading Sound Effect - 128.mp3",
+      "level_db": -17,
+      "slices": [
+        [
+          0.57,
+          2.4
+        ]
+      ],
+      "fit": "duration",
+      "hand_only": true,
+      "_": "software WORKING: the bed under a scrub / render / think span in a scene that depicts an app. Hand entry with dur. (No longer the count-up sound.)"
+    },
+    "click": {
+      "class": "character",
+      "file": "Mouse Click - Computer Clicking.aiff",
+      "level_db": -10,
+      "slices": [
+        [
+          0.2,
+          0.63
+        ],
+        [
+          2.44,
+          2.9
+        ]
+      ],
+      "hand_only": true,
+      "_": "a cursor ACTION inside a scene that depicts software (the cursor arrives on its target, a razor lands). Hand entry per action."
+    }
+  },
+  "hand_entries": "hf-graphics/sfx-hand.json rows: {gid, event, at (comp seconds) | word (a span in a text comp), dur?, note?, level_db? (override), drop? ([events] to remove from that comp's automatic list, e.g. the pops a gunshot/payoff replaces)}"
+}

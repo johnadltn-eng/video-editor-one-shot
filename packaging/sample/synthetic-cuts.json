@@ -1,0 +1,11 @@
+{
+  "note": "Plumbing fixture for a generated test pattern. It is not speech, not a client edit, and not a finished cut. Generate the clip with packaging/sample/make-synthetic-sample.sh and keep it outside git.",
+  "segments": [
+    {
+      "clip": "synthetic-sample.mp4",
+      "start": 0.0,
+      "end": 2.0,
+      "transcript": ""
+    }
+  ]
+}

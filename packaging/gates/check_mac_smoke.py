@@ -49,6 +49,8 @@ def validate(record: dict) -> list[str]:
         errors.append("multi_editor_parity_claimed must be false")
     if record.get("download_published") is not False:
         errors.append("download_published must be false")
+    if record.get("parity_certified") is not False:
+        errors.append("parity_certified must stay false until the Mac same-footage gate is actually run")
     if record.get("grade_lut_replay_verified") is not False:
         errors.append("grade_lut_replay_verified must stay false for this starter")
     version = str(record.get("premiere_version_reported") or "").strip()

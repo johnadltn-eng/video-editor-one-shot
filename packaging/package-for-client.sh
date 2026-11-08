@@ -26,12 +26,12 @@ while [[ $# -gt 0 ]]; do
 done
 
 case "$LANE" in
-  premiere) ;;
+  premiere|resolve|capcut|chat-only) ;;
   *)
-    printf 'ERROR: refusing lane %s. This starter is Premiere on macOS only.\n' "$LANE" >&2
-    printf 'Resolve, CapCut, and chat-only are not included and are not certified.\n' >&2
+    printf 'ERROR: unknown lane %s.\n' "$LANE" >&2
     exit 2
     ;;
 esac
+printf 'Archive lane note: %s is not a certification. The zip keeps every allowlisted source lane.\n' "$LANE" >&2
 
 exec python3 "$ROOT/packaging/package_starter.py" "${ARGS[@]}"

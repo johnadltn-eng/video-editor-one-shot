@@ -1,25 +1,21 @@
 #!/usr/bin/env python3
-"""Road to 20K: lay b-roll, stills and overlays on the job's sequence from premiere/place.json.
-
-  python3 presets/road-to-20k/tools/place.py <job>
-
-place.json = {"rows": [[track, "relative/path", start_frame, n_frames, src_in_seconds_or_null], ...]}
-  track 0 = V1 (only AFTER the A-roll, e.g. a still), 1 = V2 b-roll, 2 = V3 captions, 3 = V4 title/pops, 4 = V5 timestamps
-Idempotent per track: clears V2-V5 (and any V1 item placed after the A-roll) before laying the rows.
-B-roll is muted: overwriteClip lays a clip's own audio on A2+, and only THAT linked audio is removed
-(anything else on A2+, e.g. a music bed John added by hand, is left alone). Footage from raw/ or broll/ gets
-its frame rate pinned to 30 like the A-roll; graphics are rendered at 30 already.
-"""
+"""Place b-roll, captions, cards and timestamps from premiere/place.json.
+Usage: python3 presets/road-to-20k/tools/place.py <job>
+WARNING: clears/rebuilds V2-V5 and V1 items after the raw A-roll. Inspect tracks and snapshot first.
+Only linked audio belonging to raw/broll/fx-output placements is removed from A2+."""
 import json, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 from bridge import es, job_dir, ACTIVATE
 
-job = job_dir(sys.argv[1] if len(sys.argv) > 1 else sys.exit(__doc__))
+_positional = [arg for arg in sys.argv[1:] if not arg.startswith("--")]
+job = job_dir(_positional[0] if _positional else sys.exit(__doc__))
 plan = json.loads((job / "premiere" / "place.json").read_text())
 rows = [[r[0], str((job / r[1]).resolve()), r[2], r[3], r[4]] for r in plan["rows"]]
 for r in rows:
     if not Path(r[1]).exists(): sys.exit(f"missing: {r[1]}")
+if "--apply" not in sys.argv:
+    sys.exit(f"dry-run: {len(rows)} rows validated. Pass --apply to clear V2-V5 and write the open project. Inspect tracks and snapshot first.")
 proj = job / "premiere" / f"{job.name}.prproj"
 print(es(r"""
 (function(){ /*ACTIVATE*/ var e = __activate(%s, %s); if (e) return e;
@@ -38,6 +34,7 @@ print(es(r"""
     var item = find(root, path); if (!item) { app.project.importFiles([path], true, root, false); item = find(root, path); }
     if (!item) return "ERROR: import failed " + path;
     if (path.indexOf("/raw/") >= 0 || path.indexOf("/broll/") >= 0) { if (!/\.(png|jpe?g)$/i.test(path)) item.setOverrideFrameRate(30); placed[path] = 1; }
+    if (path.indexOf("/fx/outputs/") >= 0) placed[path] = 1;   // effect renders carry the base cut's audio: strip that linked audio too, or the voice doubles
     if (row[4] !== null) { item.setInPoint(row[4] + N, 4); item.setOutPoint(row[4] + row[3] / F + N, 4); }
     tr.overwriteClip(item, s + N);
     if (row[4] !== null) { item.clearInPoint(4); item.clearOutPoint(4); }

@@ -7,6 +7,7 @@
   "multi_editor_parity_claimed": false,
   "linux_ci_certifies_mac": false,
   "download_published": false,
+  "parity_certified": false,
   "gates": {
     "clean_unpack_exclusions": "not-run",
     "dependencies_present": "not-run",

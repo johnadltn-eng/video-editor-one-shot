@@ -29,12 +29,11 @@ The MCP clone and its `node_modules` are created on the Mac by setup. They are n
 
 Grading and several bridge notes in the editor were measured on **26.3.2**. If `premiere-bridge.mjs ping` reports a different version, including **25.6.2**, record the string and leave grading unverified. Do not treat the ping as an export or grade certification.
 
-## Not required for the minimal path
+## Present, but not a parity pass
 
-- The personal day-number preset
-- Face photos, logos, or a filled brand kit
-- A Hugging Face token (`.env.example` is optional diarization only)
-- A thumbnail account
-- The withheld LUT, SFX, Coolvetica, and face-model files
+- The series preset and its reviewed tools are in the archive. They are optional per job, not deleted.
+- YuNet ships with the MIT notice in `assets/models/LICENSE-YuNet.txt`. Face photos and logos still do not.
+- A Hugging Face token and a thumbnail account stay optional.
+- LUT cubes, SFX clips, and Coolvetica stay withheld. Those gaps are open parity blockers. A speech rough cut can be plumbed without them and still fail parity.
 
 A speech rough cut downloads the WhisperX large-v3 model on first use. The synthetic test pattern has no speech, so that download is not part of the plumbing check.

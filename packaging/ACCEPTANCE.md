@@ -1,8 +1,10 @@
 # Install, edit, and export checks
 
-These checks are the definition of a first edit for this starter. They are **manual on a Mac with Premiere**. The unit tests in `packaging/tests/` cover the packager (exclusions, secrets, the version pin, missing files, manifest checksums). They do not install Premiere and they do not pass this list.
+The real acceptance is a same-footage, same-prompt comparison on a Mac, recorded in `gates/MAC-SMOKE.md`. It is not the synthetic color-bar plumbing check, and it is not a Linux unit test. Open rows in `gates/parity-blockers.json` mean the result is not parity.
 
-Grading, SFX, and Coolvetica captions are **not** acceptance items. The assets are withheld, and the 26.3.2 grade recipe is unverified on any other build.
+Packaging tests cover exclusions, secrets, the version pin, provenance hashes, missing files, manifest checksums, and the dry-run defaults on the reviewed tools. They do not install Premiere and they do not pass the list below.
+
+House grading, the SFX library, and Coolvetica captions are open parity blockers, not waived items. Those binaries are withheld, and a packaging smoke that never grades, scores, or sets Coolvetica does not close them. The 26.3.2 grade notes are unverified on 25.6.2. `gates/parity-blockers.json` stays the list.
 
 ## Install
 
@@ -20,15 +22,13 @@ Grading, SFX, and Coolvetica captions are **not** acceptance items. The assets a
 1. Generate the synthetic sample (`SAMPLE.md`) or use a newly recorded non-client clip.
 2. Create a local job folder and copy the clip into `raw/`. Do not import someone else's project.
 3. Replay `packaging/sample/synthetic-cuts.json` (or an EDL for the self-recorded clip) with the Premiere bridge replay command so the timeline has separate source clips, not one flattened file.
-4. Optional and not required: `uv run lanes/premiere/audio-polish.py` and `joint-fades.py` on that local job. A failure here blocks the smoke record; it does not justify swapping in another editor.
-
-The personal day-number preset is not part of this edit.
+4. The plumbing replay above is not the series edit. Audio polish, 2-frame joint fades, per-source level match, captions, the series preset, grade, SFX, and Coolvetica remain required for parity and stay blocked until the Mac gate and the asset rows say otherwise.
 
 ## Export
 
 1. Export from Premiere itself with `exportAsMediaDirect` (the premiere skill's step 8). Do not use a queued external encoder for this check.
-2. `ffprobe` the file. It needs a video stream and a duration greater than zero.
-3. Leave the export on the machine. Do not upload it as a sample of this starter.
+2. `ffprobe` the file. A video stream and a duration greater than zero only prove the plumbing export. Parity still needs the preset's frame size, frame rate, loudness, and true peak, measured on the Mac.
+3. Leave the export on the machine. Do not upload it.
 
 ## Record
 

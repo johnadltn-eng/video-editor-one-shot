@@ -1,5 +1,5 @@
 {
-  "_comment": "Portable placeholder for the Premiere-on-macOS starter. This is not a finished machine config and it is not evidence that setup has been run. ./setup-premiere.sh writes .mcp.json on the machine that will edit. Paths are relative to the project root. Telemetry is set off. Do not commit .mcp.json. This starter does not claim Windows, Linux, Resolve, or CapCut support. /tmp/premiere-mcp-bridge is a shared bridge directory, not a home directory.",
+  "_comment": "Portable placeholder. Not a finished machine config and not evidence that setup has run. ./setup-premiere.sh writes .mcp.json locally. Paths are relative to the project root. Telemetry is off. Do not commit .mcp.json. The archive contains the other editor lanes as source; this file does not certify Windows, Linux, Resolve, or CapCut. /tmp/premiere-mcp-bridge is a shared bridge directory, not a home directory.",
   "mcpServers": {
     "premiere-pro": {
       "command": "node",

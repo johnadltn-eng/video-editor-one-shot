@@ -9,6 +9,7 @@ do not certify macOS or Premiere.
 from __future__ import annotations
 
 import argparse
+import gzip
 import hashlib
 import json
 import os
@@ -36,12 +37,6 @@ DENY_DIR_NAMES = {
 DENY_PREFIXES = (
     "projects/",
     "outputs/",
-    "presets/road-to-20k/",
-    ".claude/skills/20k/",
-    "assets/sfx/",
-    "assets/luts/",
-    "assets/face-refs/",
-    "assets/models/",
     "packaging/dist/",
     "packaging/tests/",
     "packaging/sample/out/",
@@ -132,14 +127,13 @@ _PLACEHOLDER_VALUES = {
 }
 
 MANIFEST_NOTES = [
-    "Local review archive only. Not a download release.",
-    "Editor files match the recorded source commit. Files under packaging/ may be newer.",
-    "Premiere grading notes measured on 26.3.2 are unverified on any other build.",
-    "A bridge version report of 25.6.2 does not verify adjustment-layer grading or LUT replay.",
-    "Linux tests do not certify macOS or Premiere.",
-    "Resolve, CapCut, Windows, and chat-only are outside this starter.",
-    "CinePacks LUTs, fonts without a reviewed license, the SFX library, and the face model are not included.",
-    "Personal series presets are not required and are not included.",
+    "Local review archive only. Not a download release and not a Mac parity certification.",
+    "Pinned editor bytes match the recorded source commit. Provenance lists reviewed additions.",
+    "The feature target is the full source editor, including series tools. Parity is not claimed.",
+    "Premiere grading notes measured on 26.3.2 are unverified on 25.6.2.",
+    "Linux tests do not certify macOS, Premiere, Resolve, CapCut, or export.",
+    "CinePacks LUTs, the SFX library, and Coolvetica are withheld. Missing-asset gates stay open.",
+    "The adjustment-layer member is a path-cleaned derivative. Premiere import is untested.",
 ]
 
 
@@ -270,8 +264,8 @@ def exclusion_reason(relpath: str, audit: dict) -> str | None:
 
 def profile_allows(relpath: str, profile: dict) -> bool:
     if profile.get("allow_entire_tree"):
-        if profile.get("name") == "premiere-mac-starter":
-            raise PackageError("the starter profile must not allow the entire tree")
+        if profile.get("name") in {"premiere-mac-starter", "full-editor"}:
+            raise PackageError("the editor profile must not allow the entire tree")
         return True
     allow_files = set(profile.get("allow_files") or [])
     if relpath in allow_files:
@@ -298,6 +292,11 @@ def profile_extra_deny(relpath: str, profile: dict) -> str | None:
 def scan_bytes(relpath: str, data: bytes) -> list[str]:
     """Return safeguard findings. Values of secrets are not included."""
     findings: list[str] = []
+    if data.startswith(b"\x1f\x8b"):
+        try:
+            data = gzip.decompress(data)
+        except gzip.BadGzipFile:
+            return [f"{relpath}: unreadable gzip"]
     text = data.decode("utf-8", "ignore")
     for pattern in _SECRET_MARKERS:
         if pattern.search(text):
@@ -307,7 +306,7 @@ def scan_bytes(relpath: str, data: bytes) -> list[str]:
         value = match.group(2).strip()
         if value.lower() in _PLACEHOLDER_VALUES or "example" in value.lower():
             continue
-        if value.startswith("<<") or any(ch in value for ch in ".($<{/\\"):
+        if value.startswith("<<") or any(ch in value for ch in ".($<{[/\\"):
             continue
         if len(value) < 8 or not any(char.isdigit() for char in value):
             continue
@@ -328,6 +327,8 @@ def _check_license_companion(relpath: str, audit: dict, included: set[str], sour
     license_file = decision.get("license_file")
     marker = decision.get("license_marker")
     if not license_file or not marker:
+        if decision.get("evidence") == "path-scanned-editor-file":
+            return
         raise PackageError(f"{relpath} is allowed without a license file and marker")
     if license_file not in included:
         raise PackageError(f"{relpath} requires {license_file} in the archive")
@@ -360,7 +361,29 @@ def _iter_files(source: Path, profile: dict):
             yield rel, Path(dirpath) / name
 
 
-def assemble(source: Path, profile: dict, audit: dict, source_commit: str | None = None) -> Assembly:
+def index_provenance(path: Path) -> dict:
+    if not path.is_file():
+        return {}
+    data = load_json(path)
+    indexed = {}
+    for entry in data.get("files") or []:
+        indexed[entry["path"]] = entry
+    return indexed
+
+
+def _matches_provenance(relpath: str, data: bytes, committed: bytes | None, provenance: dict) -> bool:
+    entry = provenance.get(relpath)
+    if not entry or entry.get("sha256") != _sha256(data):
+        return False
+    basis = entry.get("basis")
+    if basis == "added":
+        return committed is None
+    if basis == "replaces-pinned":
+        return committed is not None and committed != data
+    return False
+
+
+def assemble(source: Path, profile: dict, audit: dict, source_commit: str | None = None, provenance: dict | None = None) -> Assembly:
     source = source.resolve()
     pinned = str(profile.get("pinned_commit") or "")
     if not re.fullmatch(r"[0-9a-f]{40}", pinned):
@@ -379,6 +402,10 @@ def assemble(source: Path, profile: dict, audit: dict, source_commit: str | None
         recorded_head = head or "not-checked"
     else:
         raise PackageError(f"unknown commit_policy {policy!r}")
+    if provenance is None and policy == "tree_matches_pin":
+        provenance = index_provenance(source / "packaging" / "provenance.json")
+    provenance = provenance or {}
+    withheld = profile.get("withhold_files") or {}
 
     included: list[tuple[str, bytes]] = []
     excluded: list[tuple[str, str]] = []
@@ -389,6 +416,10 @@ def assemble(source: Path, profile: dict, audit: dict, source_commit: str | None
             excluded.append((rel, "symlink"))
             continue
         if not path.is_file():
+            continue
+        if rel in withheld:
+            if profile_allows(rel, profile) or profile.get("allow_entire_tree"):
+                excluded.append((rel, withheld[rel]))
             continue
         extra = profile_extra_deny(rel, profile)
         reason = extra or exclusion_reason(rel, audit)
@@ -403,10 +434,10 @@ def assemble(source: Path, profile: dict, audit: dict, source_commit: str | None
         data = path.read_bytes()
         if policy == "tree_matches_pin" and not _is_exempt(rel, profile):
             committed = blob_at(source, pinned, rel)
-            if committed is None:
-                raise PackageError(f"{rel} is not in the pinned commit")
-            if committed != data:
-                raise PackageError(f"{rel} differs from the pinned commit")
+            if committed != data and not _matches_provenance(rel, data, committed, provenance):
+                if committed is None:
+                    raise PackageError(f"{rel} is not in the pinned commit and has no matching provenance entry")
+                raise PackageError(f"{rel} differs from the pinned commit and has no matching provenance entry")
         findings = scan_bytes(rel, data)
         if findings:
             raise PackageError("safeguard failed: " + "; ".join(findings))

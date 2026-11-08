@@ -2,6 +2,12 @@
 
 Tracked files were not treated as safe to redistribute just because they are in the tree. The packager includes a media or font file only when `license-audit.json` allows that path and the named license file is in the archive and contains its marker.
 
+## Allowed after this review
+
+Instrument Serif Regular and Italic, DM Serif Display Italic, and Playfair Display Italic (variable) ship with upstream OFL texts. Each binary matches the Google Fonts file named in `license-audit.json`. Name ID 13 already declared OFL 1.1. Reserved names stay reserved.
+
+`assets/models/face_detection_yunet_2023mar.onnx` matches OpenCV Zoo object `8f2383e4dd3cfbb4553ea8718107fc0423210dc964f9f4280604804ed2552fa4`. The Zoo directory license is MIT, Copyright 2020 Shiqi Yu, copied to `LICENSE-YuNet.txt`. A conflicting Apache label from elsewhere was not used.
+
 ## Allowed
 
 | Files | Grant in this tree |

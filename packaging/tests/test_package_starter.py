@@ -6,6 +6,7 @@ Nothing here publishes a download or certifies Premiere on a Mac.
 
 from __future__ import annotations
 
+import gzip
 import importlib.util
 import json
 import subprocess
@@ -122,7 +123,6 @@ class FixtureTest(unittest.TestCase):
             self.assertFalse(path.startswith("projects/"))
             self.assertFalse(path.startswith(".git/"))
             self.assertFalse(path.startswith("node_modules/"))
-            self.assertFalse(path.startswith("presets/road-to-20k/"))
             self.assertFalse(path.startswith("assets/sfx/"))
             self.assertFalse(path.startswith("assets/luts/"))
             self.assertFalse(path.startswith("vendor/"))
@@ -250,7 +250,8 @@ class RealTreeTest(unittest.TestCase):
         for core in CORE_FILES:
             self.assertNotIn(core, profile["pin_exempt_files"])
             self.assertTrue(any(core.startswith(prefix) or core in profile["allow_files"] for prefix in profile["allow_prefixes"]) or core in profile["allow_files"])
-        self.assertIn("presets/road-to-20k/", profile["extra_deny_prefixes"])
+        self.assertNotIn("presets/road-to-20k/", profile.get("extra_deny_prefixes") or [])
+        self.assertEqual(profile["name"], "full-editor")
 
     def test_only_expected_paths_differ_from_pin(self):
         proc = subprocess.run(
@@ -259,11 +260,13 @@ class RealTreeTest(unittest.TestCase):
             stdout=subprocess.PIPE,
             text=True,
         )
+        provenance = {
+            entry["path"]
+            for entry in json.loads((ROOT / "packaging" / "provenance.json").read_text())["files"]
+        }
         unexpected = []
         for line in proc.stdout.splitlines():
-            if line.startswith("packaging/"):
-                continue
-            if line in {".gitignore", "RELEASE.md"}:
+            if line.startswith("packaging/") or line in provenance or line in {".gitignore", "RELEASE.md"}:
                 continue
             unexpected.append(line)
         self.assertEqual(unexpected, [])
@@ -293,12 +296,12 @@ class RealTreeTest(unittest.TestCase):
         self.assertIn("assets/fonts/Inter-Regular.otf", paths)
         self.assertIn("assets/fonts/OFL-Inter.txt", paths)
         self.assertIn("assets/fonts/OFL-TikTokSans.txt", paths)
+        self.assertIn("presets/road-to-20k/tools/grade.py", paths)
+        self.assertIn("presets/road-to-20k/tools/media_fix.py", paths)
+        self.assertIn(".claude/skills/20k/SKILL.md", paths)
+        self.assertIn("assets/models/face_detection_yunet_2023mar.onnx", paths)
         forbidden_parts = (
             "projects/",
-            "presets/road-to-20k/",
-            "assets/sfx/",
-            "assets/luts/",
-            "assets/models/",
             ".git/",
             "node_modules/",
             "vendor/",
@@ -308,15 +311,21 @@ class RealTreeTest(unittest.TestCase):
         for path in paths:
             for part in forbidden_parts:
                 self.assertFalse(path.startswith(part), path)
+            self.assertFalse(path.endswith((".mp3", ".wav", ".aiff", ".flac", ".cube", ".lookparams")), path)
             self.assertNotIn(path, {".env", ".mcp.json", ".setup-complete"})
         for denied in (
             "assets/fonts/Coolvetica-Rg.otf",
-            "assets/fonts/PlayfairDisplay-Italic-VF.ttf",
-            "lanes/premiere/premiere-templates/adjustment-layer.prproj",
+            "assets/luts/rec709/Autumn-Rec709.cube",
+            "lanes/capcut/capcut-templates/text-material.json",
+            ".claude/skills/media-use/scripts/lib/specs.test.mjs",
         ):
             self.assertNotIn(denied, paths)
+        self.assertIn("assets/fonts/PlayfairDisplay-Italic-VF.ttf", paths)
+        cleaned = dict(assembly.members)["lanes/premiere/premiere-templates/adjustment-layer.prproj"]
+        self.assertNotIn(b"/Users/creator", cleaned)
+        self.assertNotIn(b"/Users/creator", gzip.decompress(cleaned))
         placeholder = dict(assembly.members)[".mcp.json.example"]
-        self.assertIn(b"does not claim Windows", placeholder)
+        self.assertIn(b"does not certify Windows", placeholder)
         self.assertNotIn(b"Windows both fully supported", placeholder)
         self.assertNotIn(b"/Users/creator", placeholder)
         self.assertIn(b'"PREMIERE_MCP_TELEMETRY": "0"', placeholder)
@@ -377,6 +386,7 @@ class GateTest(unittest.TestCase):
             "multi_editor_parity_claimed": False,
             "linux_ci_certifies_mac": False,
             "download_published": False,
+            "parity_certified": False,
             "gates": {},
         }
         spec = importlib.util.spec_from_file_location(
@@ -419,8 +429,8 @@ class GateTest(unittest.TestCase):
         publish = subprocess.run(["bash", script, "--publish"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         self.assertEqual(publish.returncode, 2)
         lane = subprocess.run(["bash", script, "--lane", "resolve", "plan"], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
-        self.assertEqual(lane.returncode, 2)
-        self.assertIn("Premiere on macOS only", lane.stderr)
+        self.assertEqual(lane.returncode, 0, lane.stderr)
+        self.assertIn("not a certification", lane.stderr)
         bare = subprocess.run(["bash", script], stdout=subprocess.PIPE, stderr=subprocess.PIPE, text=True)
         self.assertEqual(bare.returncode, 2)
         self.assertFalse(list((ROOT / "packaging").glob("dist/*.zip")))

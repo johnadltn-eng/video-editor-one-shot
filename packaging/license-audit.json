@@ -71,23 +71,49 @@
     },
     {
       "path": "assets/fonts/PlayfairDisplay-Italic-VF.ttf",
-      "decision": "deny",
-      "reason": "No OFL or other license file for this binary is in the tree. A common upstream license is not treated as a grant for this copy."
+      "decision": "allow",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "assets/fonts/OFL-PlayfairDisplay.txt",
+      "license_marker": "SIL OPEN FONT LICENSE",
+      "reason": "Name ID 13 declares OFL 1.1. Bytes match google/fonts ofl/playfairdisplay PlayfairDisplay-Italic[wght].ttf. Reserved name Playfair Display."
     },
     {
       "path": "assets/fonts/DMSerifDisplay-Italic.ttf",
-      "decision": "deny",
-      "reason": "No license file for this binary is in the tree."
+      "decision": "allow",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "assets/fonts/OFL-DMSerifDisplay.txt",
+      "license_marker": "SIL OPEN FONT LICENSE",
+      "reason": "Name ID 13 declares OFL 1.1. Bytes match google/fonts ofl/dmserifdisplay DMSerifDisplay-Italic.ttf. Reserved name Source."
     },
     {
       "path": "assets/fonts/InstrumentSerif-Regular.ttf",
-      "decision": "deny",
-      "reason": "No license file for this binary is in the tree."
+      "decision": "allow",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "assets/fonts/OFL-InstrumentSerif.txt",
+      "license_marker": "SIL OPEN FONT LICENSE",
+      "reason": "Name ID 13 declares OFL 1.1. Bytes match google/fonts ofl/instrumentserif InstrumentSerif-Regular.ttf."
     },
     {
       "path": "assets/fonts/InstrumentSerif-Italic.ttf",
-      "decision": "deny",
-      "reason": "No license file for this binary is in the tree."
+      "decision": "allow",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "assets/fonts/OFL-InstrumentSerif.txt",
+      "license_marker": "SIL OPEN FONT LICENSE",
+      "reason": "Name ID 13 declares OFL 1.1. Bytes match google/fonts ofl/instrumentserif InstrumentSerif-Italic.ttf."
+    },
+    {
+      "path": "assets/models/face_detection_yunet_2023mar.onnx",
+      "decision": "allow",
+      "license": "MIT",
+      "license_file": "assets/models/LICENSE-YuNet.txt",
+      "license_marker": "MIT License",
+      "reason": "SHA-256 matches the OpenCV Zoo Git LFS oid for face_detection_yunet_2023mar.onnx. That directory's LICENSE is MIT, Copyright 2020 Shiqi Yu. A third-party Apache label was not used."
+    },
+    {
+      "path": "presets/road-to-20k/export/h264-cbr50-aac192.epr",
+      "decision": "allow",
+      "evidence": "path-scanned-editor-file",
+      "reason": "Editor export preset. ASCII and UTF-16 scans found no home-directory path. Not a third-party media license."
     },
     {
       "path": "assets/luts/",
@@ -100,14 +126,9 @@
       "reason": "The SFX folder has no license or credit file. Filenames match downloaded effects. None of those clips are cleared for the starter."
     },
     {
-      "path": "assets/models/face_detection_yunet_2023mar.onnx",
-      "decision": "deny",
-      "reason": "The filename matches an OpenCV YuNet model, and this tree has no license file for the binary. It is withheld."
-    },
-    {
       "path": "lanes/premiere/premiere-templates/adjustment-layer.prproj",
       "decision": "deny",
-      "reason": "The template embeds an absolute home-directory path. It is withheld until that path is removed. Grade-layer behavior stays unverified for this starter."
+      "reason": "The pinned donor embeds an absolute home-directory path. The archive substitutes a path-cleaned derivative from packaging/templates. Premiere import is untested."
     }
   ]
 }

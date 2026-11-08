@@ -1,0 +1,14 @@
+{
+  "_comment": "Portable placeholder. Not a finished machine config and not evidence that setup has run. ./setup-premiere.sh writes .mcp.json locally. Paths are relative to the project root. Telemetry is off. Do not commit .mcp.json. The archive contains the other editor lanes as source; this file does not certify Windows, Linux, Resolve, or CapCut. /tmp/premiere-mcp-bridge is a shared bridge directory, not a home directory.",
+  "mcpServers": {
+    "premiere-pro": {
+      "command": "node",
+      "args": ["vendor/premiere-mcp/dist/index.js"],
+      "env": {
+        "PREMIERE_TEMP_DIR": "/tmp/premiere-mcp-bridge",
+        "PREMIERE_TIMEOUT_MS": "60000",
+        "PREMIERE_MCP_TELEMETRY": "0"
+      }
+    }
+  }
+}

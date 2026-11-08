@@ -1,0 +1,134 @@
+{
+  "version": 1,
+  "audited": "2026-11-08",
+  "method": "In-repo files only. A font or media file is allowed only when a license file in this tree states a redistribution grant and that file travels with it. Public hosting of the editor repository is not a license for third-party assets.",
+  "assets": [
+    {
+      "path": "assets/fonts/Inter-Regular.otf",
+      "decision": "allow",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "assets/fonts/OFL-Inter.txt",
+      "license_marker": "SIL OPEN FONT LICENSE",
+      "reason": "assets/fonts/OFL-Inter.txt names Inter and includes the OFL 1.1 text, which permits bundling when the license travels with the font."
+    },
+    {
+      "path": "assets/fonts/Inter-Bold.otf",
+      "decision": "allow",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "assets/fonts/OFL-Inter.txt",
+      "license_marker": "SIL OPEN FONT LICENSE",
+      "reason": "Same Inter OFL file."
+    },
+    {
+      "path": "assets/fonts/Inter-Black.otf",
+      "decision": "allow",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "assets/fonts/OFL-Inter.txt",
+      "license_marker": "SIL OPEN FONT LICENSE",
+      "reason": "Same Inter OFL file."
+    },
+    {
+      "path": "assets/fonts/TikTokSans36pt-Black.ttf",
+      "decision": "allow",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "assets/fonts/OFL-TikTokSans.txt",
+      "license_marker": "SIL OPEN FONT LICENSE",
+      "reason": "assets/fonts/OFL-TikTokSans.txt names TikTok Sans and includes the OFL 1.1 text."
+    },
+    {
+      "path": "assets/fonts/TikTokSans36pt-Bold.ttf",
+      "decision": "allow",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "assets/fonts/OFL-TikTokSans.txt",
+      "license_marker": "SIL OPEN FONT LICENSE",
+      "reason": "Same TikTok Sans OFL file."
+    },
+    {
+      "path": "assets/fonts/TikTokSans36pt-ExtraBold.ttf",
+      "decision": "allow",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "assets/fonts/OFL-TikTokSans.txt",
+      "license_marker": "SIL OPEN FONT LICENSE",
+      "reason": "Same TikTok Sans OFL file."
+    },
+    {
+      "path": "assets/fonts/TikTokSans36pt-SemiBold.ttf",
+      "decision": "allow",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "assets/fonts/OFL-TikTokSans.txt",
+      "license_marker": "SIL OPEN FONT LICENSE",
+      "reason": "Same TikTok Sans OFL file."
+    },
+    {
+      "path": "assets/fonts/Coolvetica-Rg.otf",
+      "decision": "deny",
+      "reason": "No license file is next to Coolvetica. The name table identifies Coolvetica. Redistribution is not assumed."
+    },
+    {
+      "path": "assets/fonts/Coolvetica-Hv-Comp.otf",
+      "decision": "deny",
+      "reason": "No license file is next to Coolvetica Heavy Comp. Redistribution is not assumed."
+    },
+    {
+      "path": "assets/fonts/PlayfairDisplay-Italic-VF.ttf",
+      "decision": "allow",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "assets/fonts/OFL-PlayfairDisplay.txt",
+      "license_marker": "SIL OPEN FONT LICENSE",
+      "reason": "Name ID 13 declares OFL 1.1. Bytes match google/fonts ofl/playfairdisplay PlayfairDisplay-Italic[wght].ttf. Reserved name Playfair Display."
+    },
+    {
+      "path": "assets/fonts/DMSerifDisplay-Italic.ttf",
+      "decision": "allow",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "assets/fonts/OFL-DMSerifDisplay.txt",
+      "license_marker": "SIL OPEN FONT LICENSE",
+      "reason": "Name ID 13 declares OFL 1.1. Bytes match google/fonts ofl/dmserifdisplay DMSerifDisplay-Italic.ttf. Reserved name Source."
+    },
+    {
+      "path": "assets/fonts/InstrumentSerif-Regular.ttf",
+      "decision": "allow",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "assets/fonts/OFL-InstrumentSerif.txt",
+      "license_marker": "SIL OPEN FONT LICENSE",
+      "reason": "Name ID 13 declares OFL 1.1. Bytes match google/fonts ofl/instrumentserif InstrumentSerif-Regular.ttf."
+    },
+    {
+      "path": "assets/fonts/InstrumentSerif-Italic.ttf",
+      "decision": "allow",
+      "license": "SIL Open Font License 1.1",
+      "license_file": "assets/fonts/OFL-InstrumentSerif.txt",
+      "license_marker": "SIL OPEN FONT LICENSE",
+      "reason": "Name ID 13 declares OFL 1.1. Bytes match google/fonts ofl/instrumentserif InstrumentSerif-Italic.ttf."
+    },
+    {
+      "path": "assets/models/face_detection_yunet_2023mar.onnx",
+      "decision": "allow",
+      "license": "MIT",
+      "license_file": "assets/models/LICENSE-YuNet.txt",
+      "license_marker": "MIT License",
+      "reason": "SHA-256 matches the OpenCV Zoo Git LFS oid for face_detection_yunet_2023mar.onnx. That directory's LICENSE is MIT, Copyright 2020 Shiqi Yu. A third-party Apache label was not used."
+    },
+    {
+      "path": "presets/road-to-20k/export/h264-cbr50-aac192.epr",
+      "decision": "allow",
+      "evidence": "path-scanned-editor-file",
+      "reason": "Editor export preset. ASCII and UTF-16 scans found no home-directory path. Not a third-party media license."
+    },
+    {
+      "path": "assets/luts/",
+      "decision": "deny",
+      "reason": "Every .cube file starts with a CinePacks copyright header (Copyright 2019, cinepacks.store). No redistribution license is in the tree. Captured .lookparams embed that LUT data and are withheld with the cubes."
+    },
+    {
+      "path": "assets/sfx/",
+      "decision": "deny",
+      "reason": "The SFX folder has no license or credit file. Filenames match downloaded effects. None of those clips are cleared for the starter."
+    },
+    {
+      "path": "lanes/premiere/premiere-templates/adjustment-layer.prproj",
+      "decision": "deny",
+      "reason": "The pinned donor embeds an absolute home-directory path. The archive substitutes a path-cleaned derivative from packaging/templates. Premiere import is untested."
+    }
+  ]
+}

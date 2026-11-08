@@ -1,0 +1,12 @@
+{
+  "note": "Open blockers forbid a parity certification. Closing one requires a reviewed change and a Mac result, not a Linux unit test.",
+  "blockers": [
+    {"id": "mac-same-footage", "status": "open", "detail": "No same-footage, same-prompt Mac comparison has been run."},
+    {"id": "premiere-25.6.2-grade", "status": "open", "detail": "Per-footage grade close/reopen is unverified. closeDocument can drop the bridge. Docs measured 26.3.2."},
+    {"id": "cinepacks-luts", "status": "open", "detail": "House LUT and captured params are not cleared to redistribute."},
+    {"id": "sfx-library", "status": "open", "detail": "Sound library has no license record and is not in the archive."},
+    {"id": "coolvetica", "status": "open", "detail": "Coolvetica binaries have no redistribution grant."},
+    {"id": "capcut-text-templates", "status": "open", "detail": "Two CapCut text templates still embed absolute cache paths and are withheld."},
+    {"id": "adjustment-layer-import", "status": "open", "detail": "Path-cleaned donor has not been imported in Premiere."}
+  ]
+}

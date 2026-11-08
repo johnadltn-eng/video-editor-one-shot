@@ -64,8 +64,10 @@ projects/*/sections/*/hf-*/assets/
 projects/*/clips/*/hf-*/renders/
 projects/*/clips/*/hf-*/assets/
 
-# packaging build output
+# packaging build output — local archives are never a release
 packaging/dist/
+packaging/sample/out/
+packaging/gates/records/
 
 # setup markers (written by the overlay setup.sh when run from the source repo)
 /.setup-hyperframes-ok

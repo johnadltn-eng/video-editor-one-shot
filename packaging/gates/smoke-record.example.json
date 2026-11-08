@@ -1,0 +1,22 @@
+{
+  "pinned_commit": "7557eeeedab3dd444effa27474cbaad23ace997e",
+  "premiere_version_reported": "",
+  "runner": "",
+  "grading_note": "Version-specific grading is unverified. Docs measured 26.3.2. This example has not been run.",
+  "grade_lut_replay_verified": false,
+  "multi_editor_parity_claimed": false,
+  "linux_ci_certifies_mac": false,
+  "download_published": false,
+  "parity_certified": false,
+  "gates": {
+    "clean_unpack_exclusions": "not-run",
+    "dependencies_present": "not-run",
+    "setup_sh_completed": "not-run",
+    "premiere_lane_setup_completed": "not-run",
+    "bridge_ping_recorded": "not-run",
+    "premiere_version_recorded": "not-run",
+    "synthetic_or_self_recorded_only": "not-run",
+    "timeline_replay": "not-run",
+    "export_ffprobe": "not-run"
+  }
+}

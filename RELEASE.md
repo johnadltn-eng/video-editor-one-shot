@@ -1,5 +1,11 @@
 # Release notes — Claude Video Editor client package
 
+> **Starter review, not a ship.** The source tree referenced `packaging/package-for-client.sh`
+> and `packaging/delivery/ship.sh`, and those files were not present. The scripts added for
+> review build a local allowlisted starter and refuse publication. Nothing in this file is a
+> download page, a file list, or a certification for that starter. The notes below describe an
+> earlier client package.
+
 The top section is the current build. `packaging/package-for-client.sh` stamps its version into
 the zip as `VERSION` and copies this file in; `packaging/delivery/ship.sh` publishes it to the
 download page. Add a new `## <version>` section at the top for every ship; version = the ship

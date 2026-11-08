@@ -1,0 +1,26 @@
+{
+  "note": "Blocked rows are parity gaps. The packager will not add them. A local provision directory is reported only; it is not copied into the archive.",
+  "assets": [
+    {
+      "id": "cinepacks-luts",
+      "path": "assets/luts/rec709/Autumn-Rec709.cube",
+      "status": "blocked",
+      "feature": "House grade Autumn-Rec709 at intensity 70 and creative saturation 115",
+      "reason": "Cube headers are CinePacks copyright 2019 with no redistribution grant. Captured look params embed that data and are not a workaround."
+    },
+    {
+      "id": "sfx-library",
+      "path": "assets/sfx/Whoosh Short.wav",
+      "status": "blocked-media",
+      "feature": "Preset sound-design library",
+      "reason": "No ownership or license record for the clips. Some files also embed other machines' project metadata. Audio extensions stay out of the archive. The README may ship as documentation of the gap."
+    },
+    {
+      "id": "coolvetica",
+      "path": "assets/fonts/Coolvetica-Rg.otf",
+      "status": "blocked",
+      "feature": "Explainer caption font",
+      "reason": "Name table copyright is Typodermic Fonts Inc. 1999-2024. No name-table license grant and no adjacent license."
+    }
+  ]
+}

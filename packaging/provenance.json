@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "base_commit": "7557eeeedab3dd444effa27474cbaad23ace997e",
+  "note": "Sha256 values are the bytes shipped from this branch. They are not private-machine hashes.",
+  "files": [
+    {
+      "path": "assets/fonts/OFL-DMSerifDisplay.txt",
+      "basis": "added",
+      "sha256": "a3e5cdd67d4571dd0a24fcc968de0efde7ae97ef752daf0906e4767619dd7231",
+      "note": "Reviewed addition or replacement. Not a Mac certification."
+    },
+    {
+      "path": "assets/fonts/OFL-InstrumentSerif.txt",
+      "basis": "added",
+      "sha256": "129ed7618959716959f2941fdd5b49e0ad6e6c1d78726761786a00253d865521",
+      "note": "Reviewed addition or replacement. Not a Mac certification."
+    },
+    {
+      "path": "assets/fonts/OFL-PlayfairDisplay.txt",
+      "basis": "added",
+      "sha256": "566be814f8e96e93dfa16101331557eb6b5467e9e03f627c0910fe93ca12300e",
+      "note": "Reviewed addition or replacement. Not a Mac certification."
+    },
+    {
+      "path": "assets/models/LICENSE-YuNet.txt",
+      "basis": "added",
+      "sha256": "c83b8120c50ccbd4c4f96edf53141bdd566ebb8f8e9227e415326aa1b1aba958",
+      "note": "Reviewed addition or replacement. Not a Mac certification."
+    },
+    {
+      "path": "presets/road-to-20k/BEHAVIOR.md",
+      "basis": "added",
+      "sha256": "44355a4d43466f47f5abd21850eba6e46e9b7ba45cac4eae8505c60a5c5d6634",
+      "note": "Reviewed addition or replacement. Not a Mac certification."
+    },
+    {
+      "path": "presets/road-to-20k/templates/build_daycard.py",
+      "basis": "added",
+      "sha256": "6e38141903eacd890a09e6eb3ced9b2d5c69277dc15753a3644a4e5572609fa6",
+      "note": "Reviewed addition or replacement. Not a Mac certification."
+    },
+    {
+      "path": "presets/road-to-20k/templates/fx/fx.py",
+      "basis": "added",
+      "sha256": "72a18ff8c819f83818fec78a43501ef38e6627bad8cf014b0c3fb60e2ba8f596",
+      "note": "Reviewed addition or replacement. Not a Mac certification."
+    },
+    {
+      "path": "presets/road-to-20k/templates/fx/fx17.py",
+      "basis": "added",
+      "sha256": "dad6d4e06c7846308d2a91fc670b4a78a4e09b024ccddf33aa324c7270b1eb4d",
+      "note": "Reviewed addition or replacement. Not a Mac certification."
+    },
+    {
+      "path": "presets/road-to-20k/templates/fx/fxday13.py",
+      "basis": "added",
+      "sha256": "22e677fea238bb541f8798f69d7c4a29e1409928990117af316ffc06ef49a83e",
+      "note": "Reviewed addition or replacement. Not a Mac certification."
+    },
+    {
+      "path": "presets/road-to-20k/templates/fx/fxday14.py",
+      "basis": "added",
+      "sha256": "ad43611f21fb44947c318eeae355ebeb9ef1a514bc32057534e3492fc96c2745",
+      "note": "Reviewed addition or replacement. Not a Mac certification."
+    },
+    {
+      "path": "presets/road-to-20k/tools/fx_segments.py",
+      "basis": "added",
+      "sha256": "5565b426a8535f129fff071f1a66aeb800e80ad02b171f4f9d4e059524566310",
+      "note": "Reviewed addition or replacement. Not a Mac certification."
+    },
+    {
+      "path": "presets/road-to-20k/tools/grade.py",
+      "basis": "added",
+      "sha256": "a3eab469ae1d86d40b6369237a6f7f4964271881f46c0aee54a8240797323f12",
+      "note": "Reviewed addition or replacement. Not a Mac certification."
+    },
+    {
+      "path": "presets/road-to-20k/tools/level_match.py",
+      "basis": "added",
+      "sha256": "aca3afcaee7e357759a7e155766b72665e55c9c3c3536fe76abe55bf77f1831d",
+      "note": "Reviewed addition or replacement. Not a Mac certification."
+    },
+    {
+      "path": "presets/road-to-20k/tools/media_fix.py",
+      "basis": "added",
+      "sha256": "7687ee16331e28d956c37ef4b13736d9a2bdbe9a7bb5bd0a84f5cf5824b51b84",
+      "note": "Reviewed addition or replacement. Not a Mac certification."
+    },
+    {
+      "path": "presets/road-to-20k/tools/place.py",
+      "basis": "replaces-pinned",
+      "sha256": "1323aa1fbd36474bf2680eee4c8bf5f53bcb1ebf3d57f8b9a75c0f8ff3d60b75",
+      "note": "Reviewed addition or replacement. Not a Mac certification."
+    },
+    {
+      "path": "presets/road-to-20k/tools/punch_ins.py",
+      "basis": "added",
+      "sha256": "ab3404786ecb6cad88777053a9110ec10704bad2a629ff2460497552f9573310",
+      "note": "Reviewed addition or replacement. Not a Mac certification."
+    },
+    {
+      "path": "presets/road-to-20k/tools/tracks.py",
+      "basis": "added",
+      "sha256": "95891cc066c1dd87399cbed43c8b3d96caea868535a2b21901002ad753579d93",
+      "note": "Reviewed addition or replacement. Not a Mac certification."
+    }
+  ]
+}
